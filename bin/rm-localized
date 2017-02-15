@@ -1,0 +1,3 @@
+#/bin/sh
+
+ find ${HOME} -type f -maxdepth 2 -name '.localized' | xargs rm -i
