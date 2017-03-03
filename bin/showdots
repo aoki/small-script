@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/bin/bash -eu
 
-if [ 0 -eq `defaults read com.apple.finder AppleShowAllFiles` ]; then
- 	echo 'show dot files...'
-	defaults write com.apple.finder AppleShowAllFiles -bool YES
-else
- 	echo 'blind dot files...'
-	defaults write com.apple.finder AppleShowAllFiles -bool NO
-fi
+test $(defaults read com.apple.finder AppleShowAllFiles) -eq 0 && {
+  printf 'Show dot files...\n'
+  defaults write com.apple.finder AppleShowAllFiles -bool YES
+} || {
+  printf 'Hide dot files...\n'
+  defaults write com.apple.finder AppleShowAllFiles -bool NO
+}
+
 killall Finder
