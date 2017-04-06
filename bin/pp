@@ -1,0 +1,10 @@
+#!/bin/bash -eu
+
+base=$(pwd)
+for i in $(pwd | tr '/' ' '); do
+  echo ${base%/$i*}
+done
+echo $base
+
+# base=$(pwd); for i in $(pwd | tr '/' ' '); do; echo ${base%/$i*}; done; echo $base
+# find $(base=$(pwd); for i in $(pwd | tr '/' ' '); do; echo ${base%/$i*}; done; echo $base) -maxdepth 1 -name .envrc

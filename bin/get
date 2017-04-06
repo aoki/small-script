@@ -1,5 +1,11 @@
 #!/bin/bash -eu
 
+# TODO: zip/non zip
+# TODO: - / _
+# TODO: Specify install directory
+
+cd /tmp
+
 version=$(curl -s "https://api.github.com/repos/${1}/releases/latest" | grep tag_name | cut -d ':' -f 2 | cut -c 3- | rev | cut -c 3- | rev)
 
 set $(printf ${1} | tr '/' ' ')
@@ -13,8 +19,9 @@ case $(uname -m) in
   *) printf "$(uname -m) is undefined.\n"; exit 1;;
 esac
 
-url=https://github.com/${username}/${name}/releases/download/${version}/${name}_${ostype}_${arch}.zip
+url=https://github.com/${username}/${name}/releases/download/${version}/${name}_${ostype}_${arch}
 printf "${url}\n"
 curl -LO ${url}
-unzip ${name}_${ostype}_${arch}.zip -d /usr/local/bin ${name}
-rm ${name}_${ostype}_${arch}.zip
+# unzip ${name}_${ostype}_${arch} -d /usr/local/bin ${name}
+install ${name}_${ostype}_${arch} /usr/local/bin/${name}
+rm ${name}_${ostype}_${arch}
