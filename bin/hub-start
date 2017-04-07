@@ -1,0 +1,5 @@
+#!/bin/bash -eu
+
+pr_num=$(hub issue | fzf | tr -s ' ' | cut -d' ' -f 2 | rev | cut -c 2- | rev)
+read -p "issue/${pr_num:-}-" title
+git co -b "issue/${pr_num:-}-${title}"
